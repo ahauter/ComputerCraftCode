@@ -8,7 +8,6 @@ local function render()
     local line = 1
     for k, value in pairs(mining_spots) do
         term.setCursorPos(1, line)
-        term.setBackgroundColor(colors.black)
         term.write("Spot: " .. k)
         term.setCursorPos(15, line)
         term.write(" Y Level: " .. value.current_y)
@@ -21,6 +20,7 @@ local function render()
         term.setBackgroundColor(color)
         term.setCursorPos(30, line)
         term.write(str)
+        term.setBackgroundColor(colors.black)
         line = line + 1
     end
 end
