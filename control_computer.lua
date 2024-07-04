@@ -1,4 +1,5 @@
 local protocol = require("mine_protocol")
+local quarry = require("quarry")
 local max_mining_spots = 4
 local mining_spots = {}
 local file_path = "mining_spot_database_super_secret.txt"
@@ -47,12 +48,14 @@ local function handle_register(turtle_id)
         if mining_spots[i] == nil then
             mining_spots[i] = {
                 assigned_id = id,
-                current_y = mine_values.y.max,
+                current_y = quarry.mine_values.mine_start.y,
             }
             chosen_spot = i
+            break
         elseif mining_spots[i].assigned_id == nil then
             mining_spots[i].assigned_id = id
             chosen_spot = i
+            break
         end
     end
     rednet.broadcast("Assigning spot " .. chosen_spot, "monitor")
