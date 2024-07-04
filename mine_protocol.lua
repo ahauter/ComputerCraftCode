@@ -8,7 +8,7 @@ end
 
 local function host_id()
     local control = nil
-    while controle == nil do
+    while control == nil do
         control = rednet.lookup(
             name,
             host_name
