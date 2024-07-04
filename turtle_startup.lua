@@ -22,6 +22,7 @@ local function receive_message()
         return "new spot"
     end
 end
+local current_spot = nil
 local function run_mine()
     rednet.open("left")
     rednet.broadcast("Turtle starting up!", "monitor")
@@ -30,10 +31,14 @@ local function run_mine()
         rednet.broadcast("Current Status: " .. command, "monitor")
         if command == "quarry" then
             local spot, y = protocol.parse_spot_assignment(res)
-            quarry.quarry_level(spot, y)
-            protocol.send_new_level(spot)
+            current_spot = spot
+            local need_breack = quarry.quarry_level(spot, y)
+            if not need_breack then
+                protocol.send_new_level(spot)
+            end
             y = y - 1
             protocol.leave_spot(spot)
+            current_spot = nil
         elseif command == "go_home" then
             nav.goto_block(location.home)
         elseif command == "dump" then
@@ -51,6 +56,9 @@ local function run_mine()
 end
 
 local function shutdown(err)
+    if current_spot ~= nil then
+        protocol.leave_spot(current_spot)
+    end
     print(err)
     rednet.close()
     nav.goto_block(location.home)
