@@ -98,4 +98,11 @@ function main()
     end
 end
 
-main()
+local function handle_err(err)
+    save()
+    term.clear()
+    protocol.recall()
+    print(err)
+end
+
+xpcall(main, handle_err)

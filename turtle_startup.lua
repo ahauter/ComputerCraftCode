@@ -18,6 +18,8 @@ local function receive_message()
         return "dump", ""
     elseif fuel.need_refuel() then
         return "refuel", ""
+    elseif mess ~= nil and string.find(mess, "^" .. protocol.headers.recall) ~= nil then
+        return "go_home", ""
     else
         return "new spot"
     end

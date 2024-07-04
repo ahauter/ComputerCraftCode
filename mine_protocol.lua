@@ -20,8 +20,12 @@ local headers = {
     new_level = "new_level: ",
     leave = "leaving_spot: ",
     spot_request = "requesting_spot",
-    spot_assignment = "spot_assigned: "
+    spot_assignment = "spot_assigned: ",
+    recall = "recall"
 }
+local function recall()
+    rednet.broadcast(header.recall, name)
+end
 local function send_new_level(spot)
     rednet.send(host_id(), headers.new_level .. spot, name)
 end
@@ -78,6 +82,7 @@ mine_protocol = {
     parse_new_level_message = parse_new_level_message,
     parse_spot_assignment = parse_spot_assignment,
     parse_leave_spot_message = parse_leave_spot_message,
+    recall = recall,
     name = name
 }
 
