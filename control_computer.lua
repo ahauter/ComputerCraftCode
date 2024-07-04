@@ -47,7 +47,7 @@ local function handle_register(turtle_id)
     for i = 1, max_mining_spots do
         if mining_spots[i] == nil then
             mining_spots[i] = {
-                assigned_id = id,
+                assigned_id = turtle_id,
                 current_y = max_y
             }
             chosen_spot = i
