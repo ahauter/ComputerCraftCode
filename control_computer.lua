@@ -79,8 +79,7 @@ function main()
     rednet.open("top")
     protocol.host()
     while true do
-        term.clear()
-        term.write(render())
+        render()
         local id, mess = rednet.receive(protocol.name)
         rednet.broadcast("Received message from computer " .. id, "monitor")
         if string.find(mess, "^" .. protocol.headers.spot_request) ~= nil then
