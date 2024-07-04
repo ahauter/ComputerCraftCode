@@ -99,8 +99,7 @@ function quarry_level(spot, y)
         succ = turtle.forward()
         if not succ then error("Failed to move forward!") end
     end
-    return not dump.need_dump()
-        and not fuel.need_refuel()
+    return need_break()
 end
 
 return {
