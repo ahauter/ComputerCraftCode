@@ -101,6 +101,7 @@ end
 local function handle_err(err)
     save()
     term.clear()
+    term.setCursorPos(1, 1)
     protocol.recall()
     print(err)
 end
