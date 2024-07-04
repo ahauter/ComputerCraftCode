@@ -94,3 +94,7 @@ function quarry_level(spot, y)
     return not dump.need_dump()
         and not fuel.need_refuel()
 end
+
+return {
+    quarry_level = quarry_level
+}
