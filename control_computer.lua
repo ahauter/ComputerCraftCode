@@ -13,7 +13,7 @@ local function render()
         term.write(" Y Level: " .. value.current_y)
         local str = "Not assigned"
         local color = colors.red
-        if value.assigned ~= nil then
+        if value.assigned_id ~= nil then
             color = colors.green
             str = " Assigned to bot: " .. value.assigned_id
         end
