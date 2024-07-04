@@ -91,7 +91,7 @@ function main()
             local spot_num = protocol.parse_leave_spot_message(mess)
             unregister(spot_num, id)
         elseif string.find(mess, "^" .. protocol.headers.new_level) ~= nil then
-            local spot_num = protocol.parse_leave_spot_message(mess)
+            local spot_num = protocol.parse_new_level_message(mess)
             add_level(spot_num, id)
         end
         save()
