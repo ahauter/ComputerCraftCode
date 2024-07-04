@@ -7,10 +7,13 @@ local function host()
 end
 
 local function host_id()
-    local control = rednet.lookup(
-        name,
-        host_name
-    )
+    local control = nil
+    while controle == nil do
+        control = rednet.lookup(
+            name,
+            host_name
+        )
+    end
     return control
 end
 local headers = {
