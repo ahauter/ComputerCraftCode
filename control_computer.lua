@@ -2,16 +2,24 @@ local protocol = require("mine_protocol")
 local max_mining_spots = 4
 local mining_spots = {}
 local file_path = "mining_spot_database_super_secret.txt"
-local function get_str()
-    local str = ""
+local function render()
+    term.clear()
+    local line = 1
     for k, value in pairs(mining_spots) do
-        str = str .. "Spot: " .. k .. " Y Level: " .. value.current_y
+        term.setCursorPos(1, line)
+        term.write("Spot: " .. k)
+        term.setCursorPos(20, line)
+        term.write(" Y Level: " .. value.current_y)
+        local str = "Not assigned"
+        local color = colors.red
         if value.assigned ~= nil then
-            str = str .. " Assigned to bot: " .. value.assigned_id
+            color = colors.green
+            str = " Assigned to bot: " .. value.assigned_id
         end
-        str = str .. "/n"
+        term.setBackgroundColor(color)
+        term.write(str)
+        line = line + 1
     end
-    return str
 end
 local function save()
     local file = io.open(file_path, "w")
@@ -70,7 +78,7 @@ function main()
     protocol.host()
     while true do
         term.clear()
-        term.write(get_str())
+        term.write(render())
         local id, mess = rednet.receive(protocol.name)
         rednet.broadcast("Received message from computer " .. id, "monitor")
         if string.find(mess, "^" .. protocol.headers.spot_request) ~= nil then
