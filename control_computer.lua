@@ -73,12 +73,12 @@ function main()
         term.write(get_str())
         local id, mess = rednet.receive(protocol.name)
         rednet.broadcast("Received message from computer " .. id, "monitor")
-        if string.find(mess, "^" .. protocol.headers.spot_request) == nil then
+        if string.find(mess, "^" .. protocol.headers.spot_request) ~= nil then
             handle_register(id)
-        elseif string.find(mess, "^" .. protocol.headers.leave) == nil then
+        elseif string.find(mess, "^" .. protocol.headers.leave) ~= nil then
             local spot_num = protocol.parse_leave_spot_message(mess)
             unregister(spot_num, id)
-        elseif string.find(mess, "^" .. protocol.headers.new_level) == nil then
+        elseif string.find(mess, "^" .. protocol.headers.new_level) ~= nil then
             local spot_num = protocol.parse_leave_spot_message(mess)
             add_level(spot_num, id)
         end

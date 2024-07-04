@@ -28,7 +28,7 @@ end
 
 local function parse_new_level_message(mess)
     if string.find(mess, "^" .. headers.new_level) == nil then
-        error("Not a properly formatted message for spot assignment")
+        error("Could not parse new level message")
     end
     mess = string.sub(mess, string.len(headers.new_level))
     return tonumber(mess)
@@ -40,7 +40,7 @@ end
 
 local function parse_leave_spot_message(mess)
     if string.find(mess, "^" .. headers.leave) == nil then
-        error("Not a properly formatted message for spot assignment")
+        error("Could not parse leave spot message")
     end
     mess = string.sub(mess, string.len(headers.leave))
     return tonumber(mess)
