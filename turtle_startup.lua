@@ -8,7 +8,7 @@ local protocol = require("mine_protocol")
 local quarry = require("quarry")
 
 local function receive_message()
-    local id, mess = rednet.receive(1)
+    local id, mess = rednet.receive(protocol.name, 1)
     if mess ~= nil then
         rednet.broadcast("New message: " .. mess, "monitor")
     end
