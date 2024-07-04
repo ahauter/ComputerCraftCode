@@ -30,12 +30,9 @@ local function run_mine()
         rednet.broadcast("Current Status: " .. command, "monitor")
         if command == "quarry" then
             local spot, y = protocol.parse_spot_assignment(res)
-            local need_break = false
-            while not need_break do
-                need_break = quarry.quarry_level(spot, y)
-                protocol.send_new_level(spot)
-                y = y - 1
-            end
+            quarry.quarry_level(spot, y)
+            protocol.send_new_level(spot)
+            y = y - 1
             protocol.leave_spot(spot)
         elseif command == "go_home" then
             nav.goto_block(location.home)
