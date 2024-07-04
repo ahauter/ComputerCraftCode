@@ -9,7 +9,9 @@ local quarry = require("quarry")
 
 local function receive_message()
     local id, mess = rednet.receive(1)
-    rednet.broadcast("New message: " .. mess, "monitor")
+    if mess ~= nil then
+        rednet.broadcast("New message: " .. mess, "monitor")
+    end
     if mess ~= nil and string.find(mess, "^" .. protocol.headers.spot_assignment) ~= nil then
         return "quarry", mess
     elseif dump.need_dump() then
