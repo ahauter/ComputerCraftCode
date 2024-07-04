@@ -7,7 +7,6 @@ local file_names = {
     "dump.lua",
     "location.lua",
     "mine_protocol.lua",
-    "mine_startup.lua",
     "navigation.lua",
     "quarry.lua",
     "refuel.lua",
