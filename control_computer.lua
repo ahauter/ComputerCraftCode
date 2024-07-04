@@ -71,7 +71,7 @@ end
 
 local function add_level(spot, id)
     local spot_info = mining_spots[spot]
-    local y = spot_info.y
+    local y = spot_info.current_y
     if spot_info ~= nil and spot_info.assigned_id == id then
         mining_spots[spot].current_y = y - 1
     end
