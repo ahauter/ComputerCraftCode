@@ -7,8 +7,9 @@ local function render()
     local line = 1
     for k, value in pairs(mining_spots) do
         term.setCursorPos(1, line)
+        term.setBackgroundColor(colors.black)
         term.write("Spot: " .. k)
-        term.setCursorPos(20, line)
+        term.setCursorPos(15, line)
         term.write(" Y Level: " .. value.current_y)
         local str = "Not assigned"
         local color = colors.red
@@ -17,6 +18,7 @@ local function render()
             str = " Assigned to bot: " .. value.assigned_id
         end
         term.setBackgroundColor(color)
+        term.setCursorPos(30, line)
         term.write(str)
         line = line + 1
     end
