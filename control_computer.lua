@@ -1,8 +1,8 @@
 local protocol = require("mine_protocol")
-local quarry = require("quarry")
 local max_mining_spots = 4
 local mining_spots = {}
 local file_path = "mining_spot_database_super_secret.txt"
+local max_y = 253
 local function render()
     term.clear()
     local line = 1
@@ -48,7 +48,7 @@ local function handle_register(turtle_id)
         if mining_spots[i] == nil then
             mining_spots[i] = {
                 assigned_id = id,
-                current_y = quarry.mine_values.mine_start.y,
+                current_y = max_y
             }
             chosen_spot = i
             break
