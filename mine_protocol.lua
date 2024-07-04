@@ -60,8 +60,9 @@ local function parse_spot_assignment(mess)
     end
     mess = string.sub(mess, string.len(headers.spot_assignment))
     local tbl = {}
-    for k, v in string.gmatch(mess, "([^" .. ", " .. "]+)") do
-        table.insert(tbl, v)
+    local sep = ","
+    for str in string.gmatch(mess, "([^" .. sep .. "]+)") do
+        table.insert(tbl, str)
     end
     local spot = tbl[1]
     local y = tbl[2]
