@@ -59,7 +59,7 @@ local function handle_register(turtle_id)
         end
     end
     rednet.broadcast("Assigning spot " .. chosen_spot, "monitor")
-    protocol.assign_spot(chosen_spot, mining_spots[chosen_spot].current_y)
+    protocol.assign_spot(turtle_id, chosen_spot, mining_spots[chosen_spot].current_y)
 end
 
 local function unregister(spot, id)
