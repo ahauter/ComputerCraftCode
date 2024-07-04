@@ -59,7 +59,7 @@ local function handle_register(turtle_id)
         end
     end
     rednet.broadcast("Assigning spot " .. chosen_spot, "monitor")
-    protocol.assign_spot(chosen_spot, mining_spots[i].y)
+    protocol.assign_spot(chosen_spot, mining_spots[chosen_spot].current_y)
 end
 
 local function unregister(spot, id)
@@ -73,7 +73,7 @@ local function add_level(spot, id)
     local spot_info = mining_spots[spot]
     local y = spot_info.y
     if spot_info ~= nil and spot_info.assigned_id == id then
-        mining_spots[spot].y = y - 1
+        mining_spots[spot].current_y = y - 1
     end
 end
 
