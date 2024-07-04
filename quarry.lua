@@ -14,14 +14,18 @@ local function get_start_mining_coords(spot)
     local base = mine_values.mine_start
     if spot == 1 then
         increment = vector.new(0, 0, 0)
+        return base + increment
     elseif spot == 2 then
         increment = vector.new(-8, 0, 0)
+        return base + increment
     elseif spot == 3 then
         increment = vector.new(0, 0, 8)
-    elseif spot == 2 then
+        return base + increment
+    elseif spot == 4 then
         increment = vector.new(-8, 0, 8)
+        return base + increment
     end
-    return base + increment
+    error("Unknown Spot")
 end
 
 local function get_end_mining_coords(spot)
