@@ -53,7 +53,7 @@ local function handle_register(turtle_id)
             chosen_spot = i
             break
         elseif mining_spots[i].assigned_id == nil then
-            mining_spots[i].assigned_id = id
+            mining_spots[i].assigned_id = turtle_id
             chosen_spot = i
             break
         end
