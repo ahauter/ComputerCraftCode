@@ -77,7 +77,7 @@ function quarry_level(spot, y)
     do
         while
             not need_break()
-            or at_end(z_dir, cur_start.z, end_coords.z)
+            and not at_end(z_dir, cur_start.z, end_coords.z)
         do
             dir.face(z_dir)
             turtle.dig()
@@ -92,9 +92,9 @@ function quarry_level(spot, y)
     end
     while
         not need_break()
-        or at_end(z_dir, cur_start.z, end_coords.z)
+        and not at_end(z_dir, cur_start.z, end_coords.z)
     do
-        dir.face(dir.POS_Z)
+        dir.face(z_dir)
         turtle.dig()
         succ = turtle.forward()
         if not succ then error("Failed to move forward!") end
