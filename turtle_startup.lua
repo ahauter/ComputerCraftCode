@@ -15,7 +15,7 @@ local quarry_location = nil
 local function receive_message()
     while true do
         -- set a timeout so we keep checking for
-        local id, mess = rednet.receive(protocol.name, 1)
+        local id, mess = rednet.receive(protocol.name)
         if mess ~= nil then
             rednet.broadcast("New message: " .. mess, "monitor")
             if string.find(mess, "^" .. protocol.headers.spot_assignment) ~= nil then
@@ -30,14 +30,9 @@ local function receive_message()
                 status = "go_home"
             elseif string.find(mess, "^" .. protocol.headers.restart) ~= nil then
                 status = "restart"
+            else
+                status = "mine"
             end
-        end
-        if dump.need_dump() then
-            status = "dump"
-        elseif fuel.need_refuel() then
-            status = "refuel"
-        elseif mess == nil then
-            status = "mine"
         end
     end
 end
@@ -45,6 +40,11 @@ end
 local quary_coroutine = nil
 local function run_mine()
     while true do
+        if status == "mine" and dump.need_dump() then
+            status = "dump"
+        elseif fuel.need_refuel() then
+            status = "refuel"
+        end
         print("status is " .. status)
         if status == "go_home" then
             nav.goto_block(location.home)
