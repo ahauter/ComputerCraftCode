@@ -15,7 +15,7 @@ local quarry_location = nil
 local function receive_message()
     while true do
         -- set a timeout so we keep checking for
-        local id, mess, prot = rednet.receive(1)
+        local id, mess = rednet.receive(protocol.name, 1)
         if mess ~= nil then
             rednet.broadcast("New message: " .. mess, "monitor")
             if string.find(mess, "^" .. protocol.headers.spot_assignment) ~= nil then
