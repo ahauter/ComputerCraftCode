@@ -45,6 +45,13 @@ end
 local function handle_register(turtle_id)
     local chosen_spot = 0
     for i = 1, max_mining_spots do
+        if mining_spots[i] ~= nil and mining_spots[i].assigned_id == turtle_id then
+            rednet.broadcast("Assigning spot " .. chosen_spot, "monitor")
+            protocol.assign_spot(turtle_id, chosen_spot, mining_spots[chosen_spot].current_y)
+            return
+        end
+    end
+    for i = 1, max_mining_spots do
         if mining_spots[i] == nil then
             mining_spots[i] = {
                 assigned_id = turtle_id,
