@@ -45,7 +45,9 @@ local function run_mine()
         elseif fuel.need_refuel() then
             status = "refuel"
         end
-        print("status is " .. status)
+        if status ~= nil then
+            print("status is " .. status)
+        end
         if status == "go_home" then
             nav.goto_block(location.home)
             coroutine.yield()
@@ -91,7 +93,7 @@ local function main()
     print("Turtle starting up! Version " .. version)
     rednet.open("left")
     rednet.broadcast("Turtle starting up!", "monitor")
-    parallel.waitForAll(run_mine, receive_message)
+    parallel.waitForAll(receive_message, run_mine)
 end
 
 local function shutdown(err)
