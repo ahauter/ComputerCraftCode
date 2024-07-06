@@ -89,8 +89,8 @@ local function main()
 end
 
 local function shutdown(err)
-    if current_spot ~= nil then
-        protocol.leave_spot(current_spot)
+    if quarry_location ~= nil then
+        protocol.leave_spot(quarry_location.spot)
     end
     print(err)
     rednet.close()
