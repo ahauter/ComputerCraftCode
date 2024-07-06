@@ -37,18 +37,12 @@ local function receive_message()
     end
 end
 
-local quary_coroutine = nil
 local function run_mine()
     while true do
         if status == "mine" and dump.need_dump() then
             status = "dump"
         elseif fuel.need_refuel() then
             status = "refuel"
-        end
-        if status ~= nil then
-            print("status is " .. status)
-            print("Have a location = " .. quarry_location ~= nil)
-            print("Have a coroutine = " .. quary_coroutine ~= nil)
         end
         if status == "go_home" then
             nav.goto_block(location.home)
@@ -66,25 +60,14 @@ local function run_mine()
         elseif status == "mine" then
             if quarry_location == nil then
                 protocol.spot_request()
-                if quary_coroutine ~= nil then
-                    quary_coroutine = nil
-                end
                 coroutine.yield()
-            elseif quarry_location ~= nil and quary_coroutine == nil then
-                quary_coroutine = coroutine.create(function(...)
-                    quarry.quarry_level(quarry_location.spot, quarry_location.y)
-                end)
-                coroutine.yield()
-            elseif quary_coroutine ~= nil then
-                local status, succ = coroutine.resume(quary_coroutine)
-                if status == false then
-                    if succ then
-                        protocol.send_new_level(quarry_location.spot)
-                    end
-                    protocol.leave_spot(quarry_location.spot)
-                    quary_coroutine = nil
-                    quarry_location = nil
+            elseif quarry_location ~= nil then
+                local need_break = quarry_level(quarry_location.spot, quarry_location.y)
+                if not need_break then
+                    protocol.send_new_level(quarry_location.spot)
                 end
+                protocol.leave_spot(quarry_location.spot)
+                quarry_location = nil
                 coroutine.yield()
             end
         end
