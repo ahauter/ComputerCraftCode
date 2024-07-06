@@ -48,24 +48,29 @@ local function run_mine()
         print("status is " .. status)
         if status == "go_home" then
             nav.goto_block(location.home)
+            coroutine.yield()
         elseif status == "dump" then
             nav.goto_block(dump.location)
             dir.face(dir.NEG_Z)
             dump.dump()
+            coroutine.yield()
         elseif status == "refuel" then
             nav.goto_block(fuel.location)
             dir.face(dir.NEG_Z)
             fuel.refuel()
+            coroutine.yield()
         elseif status == "mine" then
             if quarry_location == nil then
                 protocol.spot_request()
                 if quary_coroutine ~= nil then
                     quary_coroutine = nil
                 end
+                coroutine.yield()
             elseif quarry_location ~= nil and quary_coroutine == nil then
                 quary_coroutine = coroutine.create(function(...)
                     quarry.quarry_level(quarry_location.spot, quarry_location.y)
                 end)
+                coroutine.yield()
             elseif quary_coroutine ~= nil then
                 local status, succ = coroutine.resume(quary_coroutine)
                 if status == false then
@@ -76,9 +81,9 @@ local function run_mine()
                     quary_coroutine = nil
                     quarry_location = nil
                 end
+                coroutine.yield()
             end
         end
-        coroutine.yield()
     end
 end
 
