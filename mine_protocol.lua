@@ -21,7 +21,9 @@ local headers = {
     leave = "leaving_spot: ",
     spot_request = "requesting_spot",
     spot_assignment = "spot_assigned: ",
-    recall = "recall"
+    recall = "recall",
+    status_report = "status_report",
+    restart = "restart"
 }
 local function recall()
     rednet.broadcast(header.recall, name)
