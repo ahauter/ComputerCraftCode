@@ -9,7 +9,7 @@ local quarry = require("quarry")
 
 local version = "0.0.4"
 
-local status = nil
+local status = "mine"
 local quarry_location = nil
 
 local function receive_message()
@@ -47,6 +47,8 @@ local function run_mine()
         end
         if status ~= nil then
             print("status is " .. status)
+            print("Have a location = " .. quarry_location ~= nil)
+            print("Have a coroutine = " .. quary_coroutine ~= nil)
         end
         if status == "go_home" then
             nav.goto_block(location.home)
