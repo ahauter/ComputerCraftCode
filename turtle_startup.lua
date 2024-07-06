@@ -45,6 +45,7 @@ end
 local quary_coroutine = nil
 local function run_mine()
     while true do
+        print("status is " .. status)
         if status == "go_home" then
             nav.goto_block(location.home)
         elseif status == "dump" then
