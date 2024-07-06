@@ -69,12 +69,12 @@ local function run_mine()
             elseif quary_coroutine ~= nil then
                 local status, succ = coroutine.resume(quary_coroutine)
                 if status == false then
-                    quary_coroutine = nil
-                    quarry_location = nil
                     if succ then
                         protocol.send_new_level(quarry_location.spot)
                     end
                     protocol.leave_spot(quarry_location.spot)
+                    quary_coroutine = nil
+                    quarry_location = nil
                 end
             end
         end
