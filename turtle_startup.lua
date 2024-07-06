@@ -77,6 +77,7 @@ local function run_mine()
                 end
             end
         end
+        coroutine.yield()
     end
 end
 
