@@ -37,7 +37,6 @@ local function receive_message()
     end
 end
 
-local quary_coroutine = nil
 local function run_mine()
     while true do
         if status == "mine" and dump.need_dump() then
@@ -47,7 +46,7 @@ local function run_mine()
         end
         if status ~= nil then
             print("status is " .. status)
-            print("Have a location = " .. quarry_location ~= nil)
+            print("Have a location = " .. (quarry_location ~= nil))
             print("Have a coroutine = " .. quary_coroutine ~= nil)
         end
         if status == "go_home" then
@@ -70,19 +69,13 @@ local function run_mine()
                     quary_coroutine = nil
                 end
                 coroutine.yield()
-            elseif quarry_location ~= nil and quary_coroutine == nil then
-                quary_coroutine = coroutine.create(function(...)
-                    quarry.quarry_level(quarry_location.spot, quarry_location.y)
-                end)
-                coroutine.yield()
-            elseif quary_coroutine ~= nil then
-                local status, succ = coroutine.resume(quary_coroutine)
-                if status == false then
+            elseif quarry_location ~= nil then
+                local succ = quarry.quarry_level(quarry_location.spot, quarry_location.y)
+                if status == succ then
                     if succ then
                         protocol.send_new_level(quarry_location.spot)
                     end
                     protocol.leave_spot(quarry_location.spot)
-                    quary_coroutine = nil
                     quarry_location = nil
                 end
                 coroutine.yield()
