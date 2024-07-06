@@ -7,6 +7,8 @@ local nav = require("navigation")
 local protocol = require("mine_protocol")
 local quarry = require("quarry")
 
+local version = "0.0.1"
+
 local function receive_message()
     local id, mess = rednet.receive(protocol.name, 1)
     if mess ~= nil then
@@ -26,6 +28,7 @@ local function receive_message()
 end
 local current_spot = nil
 local function run_mine()
+    print("Turtle starting up! Version " .. version)
     rednet.open("left")
     rednet.broadcast("Turtle starting up!", "monitor")
     while true do
