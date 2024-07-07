@@ -26,7 +26,7 @@ local function ask_for_status()
             protocol.headers.status_report,
             protocol.name
         )
-        sleep(5)
+        os.sleep(5)
     end
 end
 
@@ -37,6 +37,7 @@ local function render()
         term.setCursorPos(1, 1)
         term.write("Turtle Status")
         for id, info in pairs(turtles) do
+            term.setCursorPos(1, line)
             term.write("Turtle " .. id .. "Status ")
             local status = info.status
             if status == nil then
