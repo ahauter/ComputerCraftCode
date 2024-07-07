@@ -23,11 +23,20 @@ local headers = {
     spot_assignment = "spot_assigned: ",
     recall = "recall",
     status_report = "status_report",
+    error_report = "error_report: ",
     restart = "restart"
 }
+local function has_header(header, mess)
+    return string.find(mess, "^" .. headers.new_level) == nil
+end
 local function recall()
     rednet.broadcast(headers.recall, name)
 end
+
+local function report_error(error)
+    rednet.broadcast(headers.error_report .. error, name)
+end
+
 local function send_new_level(spot)
     rednet.send(host_id(), headers.new_level .. spot, name)
 end
@@ -84,7 +93,9 @@ mine_protocol = {
     parse_new_level_message = parse_new_level_message,
     parse_spot_assignment = parse_spot_assignment,
     parse_leave_spot_message = parse_leave_spot_message,
+    has_header = has_header,
     recall = recall,
+    report_error = report_error,
     name = name
 }
 
