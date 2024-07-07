@@ -57,6 +57,7 @@ local function run_mine()
             nav.goto_block(fuel.location)
             dir.face(dir.NEG_Z)
             fuel.refuel()
+            status = "mine"
             coroutine.yield()
         elseif status == "restart" then
             os.reboot()
