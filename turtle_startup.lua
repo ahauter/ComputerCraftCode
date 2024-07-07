@@ -25,7 +25,7 @@ local function receive_message()
                     y = y
                 }
             elseif string.find(mess, "^" .. protocol.headers.status_report) ~= nil then
-                rednet.send(id, protocol.headers.status_report .. " " .. status)
+                rednet.send(id, protocol.headers.status_report .. status)
             elseif string.find(mess, "^" .. protocol.headers.recall) ~= nil then
                 status = "go_home"
             elseif string.find(mess, "^" .. protocol.headers.restart) ~= nil then
@@ -57,12 +57,14 @@ local function run_mine()
             dir.face(dir.NEG_Z)
             fuel.refuel()
             coroutine.yield()
+        elseif status == "restart" then
+            os.reboot()
         elseif status == "mine" then
             if quarry_location == nil then
                 protocol.spot_request()
                 coroutine.yield()
             elseif quarry_location ~= nil then
-                local need_break = quarry_level(quarry_location.spot, quarry_location.y)
+                local need_break = quarry.quarry_level(quarry_location.spot, quarry_location.y)
                 if not need_break then
                     protocol.send_new_level(quarry_location.spot)
                 end
@@ -86,6 +88,7 @@ local function shutdown(err)
         protocol.leave_spot(quarry_location.spot)
     end
     print(err)
+    protocol.report_error(err)
     rednet.close()
     nav.goto_block(location.home)
 end
