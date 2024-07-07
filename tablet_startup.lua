@@ -4,6 +4,12 @@ local turtles = {}
 local function listen_for_status()
     while true do
         local id, mess = rednet.receive(protocol.name)
+        if turtles[id] == nil then
+            turtles[id] = {
+                status = nil,
+                error = nil
+            }
+        end
         if protocol.has_header(protocol.headers.status_report, mess) then
             local status = string.sub(mess, string.len(protocol.headers.status_report))
             turtles[id].status = status
