@@ -1,10 +1,6 @@
 local protocol = require("mine_protocol")
 
 local turtles = {}
-local function render()
-    term.clear()
-end
-
 local function listen_for_status()
     while true do
         local id, mess = rednet.receive(protocol.name)
@@ -48,6 +44,7 @@ local function render()
             end
             line = line + 1
         end
+        os.sleep(5)
     end
 end
 local function main()
@@ -57,3 +54,4 @@ local function main()
         render
     )
 end
+main()
