@@ -26,7 +26,7 @@ local headers = {
     restart = "restart"
 }
 local function recall()
-    rednet.broadcast(header.recall, name)
+    rednet.broadcast(headers.recall, name)
 end
 local function send_new_level(spot)
     rednet.send(host_id(), headers.new_level .. spot, name)
