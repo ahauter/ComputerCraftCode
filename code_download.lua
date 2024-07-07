@@ -10,6 +10,7 @@ local file_names = {
     "navigation.lua",
     "quarry.lua",
     "refuel.lua",
+    "tablet_startup.lua",
     "turtle_startup.lua"
 }
 
