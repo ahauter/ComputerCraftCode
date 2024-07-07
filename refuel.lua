@@ -37,6 +37,8 @@ function M.refuel()
         error("No item slots available for refuel")
     end
     turtle.select(ind)
+    turtle.suck()
+    turtle.refuel()
 end
 
 return M
