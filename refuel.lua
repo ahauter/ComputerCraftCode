@@ -10,10 +10,8 @@ function M.need_refuel()
     local cur_loc = location.current()
     local diff = loc - cur_loc
     local fuel_level = turtle.getFuelLevel()
-    local dist = math.abs(diff.x)
-        + math.abs(diff.y)
-        + math.abs(diff.z)
-    return dist >= fuel_level + 50
+    local dist = diff:length()
+    return dist >= fuel_level + 100
 end
 
 function M.refuel()

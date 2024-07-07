@@ -7,7 +7,7 @@ local nav = require("navigation")
 local protocol = require("mine_protocol")
 local quarry = require("quarry")
 
-local version = "0.0.4"
+local version = "0.0.4r"
 
 local status = "mine"
 local quarry_location = nil
@@ -51,11 +51,7 @@ local function run_mine()
             nav.goto_block(dump.location)
             dir.face(dir.NEG_Z)
             dump.dump()
-            if fuel.need_refuel() then
-                status = "refuel"
-            else
-                status = "mine"
-            end
+            status = "refuel"
             coroutine.yield()
         elseif status == "refuel" then
             nav.goto_block(fuel.location)
