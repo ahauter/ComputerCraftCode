@@ -7,7 +7,7 @@ local nav = require("navigation")
 local protocol = require("mine_protocol")
 local quarry = require("quarry")
 
-local version = "0.0.5"
+local version = "0.0.5spots"
 
 local status = "mine"
 local quarry_location = nil
