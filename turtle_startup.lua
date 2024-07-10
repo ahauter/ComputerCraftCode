@@ -25,7 +25,7 @@ local function receive_message()
                     y = y
                 }
             elseif string.find(mess, "^" .. protocol.headers.status_report) ~= nil then
-                rednet.send(id, protocol.headers.status_report .. status)
+                rednet.send(id, protocol.headers.status_report .. status, protocol.name)
             elseif string.find(mess, "^" .. protocol.headers.recall) ~= nil then
                 status = "go_home"
             elseif string.find(mess, "^" .. protocol.headers.restart) ~= nil then
