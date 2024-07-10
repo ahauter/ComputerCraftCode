@@ -1,5 +1,6 @@
 local protocol = require("mine_protocol")
 local max_mining_spots = 4
+local min_mining_spot = 2
 local mining_spots = {}
 local file_path = "mining_spot_database_super_secret.txt"
 local max_y = 253
@@ -44,7 +45,7 @@ local function load()
 end
 local function handle_register(turtle_id)
     local chosen_spot = 0
-    for i = 1, max_mining_spots do
+    for i = min_mining_spot, (max_mining_spots + min_mining_spot) do
         if mining_spots[i] == nil then
             mining_spots[i] = {
                 assigned_id = turtle_id,

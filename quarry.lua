@@ -8,43 +8,29 @@ local mine_values = {
     mine_start = vector.new(368, 250, -320),
     mine_end = vector.new(375, -63, -313)
 }
-
-local function get_start_mining_coords(spot)
-    local increment = nil
-    local base = mine_values.mine_start
-    if spot == 1 then
-        increment = vector.new(0, 0, 0)
-        return base + increment
-    elseif spot == 2 then
-        increment = vector.new(8, 0, 0)
-        return base + increment
+local function increment(spot)
+    local inc = vector.new(0, 0, 0)
+    if spot == 2 then
+        inc = vector.new(8, 0, 0)
     elseif spot == 3 then
-        increment = vector.new(0, 0, 8)
-        return base + increment
+        inc = vector.new(0, 0, 8)
     elseif spot == 4 then
-        increment = vector.new(8, 0, 8)
-        return base + increment
+        inc = vector.new(8, 0, 8)
+    elseif spot == 5 then
+        inc = vector.new(8, 0, 16)
+    else
+        error("Unknown Spot")
     end
-    error("Unknown Spot")
+    return inc
+end
+local function get_start_mining_coords(spot)
+    local base = mine_values.mine_start
+    return base + increment(spot)
 end
 
 local function get_end_mining_coords(spot)
-    local increment = nil
     local base = mine_values.mine_end
-    if spot == 1 then
-        increment = vector.new(0, 0, 0)
-        return base + increment
-    elseif spot == 2 then
-        increment = vector.new(8, 0, 0)
-        return base + increment
-    elseif spot == 3 then
-        increment = vector.new(0, 0, 8)
-        return base + increment
-    elseif spot == 4 then
-        increment = vector.new(8, 0, 8)
-        return base + increment
-    end
-    error("Unknown Spot")
+    return base + increment(spot)
 end
 
 local function need_break()
